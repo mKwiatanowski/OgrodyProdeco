@@ -31,6 +31,18 @@ Weryfikacja zmian: `npm run build` wyłapuje błędy schematów treści i więks
 - `docs/source-content/` — fakty o firmie zrekonstruowane ze źródeł (dane teleadresowe, historia, zakres usług). **Jedyne źródło prawdy o firmie** — nie wymyślaj faktów, których tam nie ma.
 - `docs/content-briefs/` — briefy contentowe dla każdej podstrony + `00-strategia-i-ton.md` (grupa docelowa, ton, USP, SEO). Punkt wyjścia dla każdej treści.
 
+## Deployment
+
+- Hosting: **GitHub Pages** (repo `mKwiatanowski/OgrodyProdeco`), deploy automatyczny z `main`
+  przez `.github/workflows/deploy.yml`. Adres: https://mkwiatanowski.github.io/OgrodyProdeco/
+- Strona jest serwowana z **podkatalogu** `/OgrodyProdeco` — workflow ustawia `PUBLIC_SITE_URL`
+  i `PUBLIC_SITE_BASE`, a `astro.config.mjs` czyta je do `site`/`base`. Lokalnie oba mają wartości
+  docelowej produkcji (ogrodyprodeco.pl, base `/`).
+- **Konwencja linków:** wszystkie wewnętrzne hrefy i ścieżki obrazów podawaj root-absolutnie
+  (`/oferta`, `/images/...`) i przepuszczaj przez helper `url()` z `src/lib/url.ts` w miejscu
+  renderowania. Goły `href="/..."` zepsuje się na GitHub Pages.
+- Po podpięciu własnej domeny: usuń obie zmienne env z workflow — nic więcej nie trzeba zmieniać.
+
 ## Zasady treści
 
 - Ton: ciepły, ale ekspercki. Krótkie zdania. Konkret zamiast ogólników („kosztorys z podziałem na etapy”, nie „profesjonalna obsługa”). Pełne zasady: `docs/content-briefs/00-strategia-i-ton.md`.

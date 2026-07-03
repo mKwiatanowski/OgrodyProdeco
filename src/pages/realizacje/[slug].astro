@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import RealizacjaCard from "../../components/RealizacjaCard.astro";
 import CTASection from "../../components/CTASection.astro";
 import Icon from "../../components/Icon.astro";
+import { url } from "../../lib/url";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -31,7 +32,7 @@ const podobne = (await getCollection("realizacje"))
     <section class="bg-brand-50 border-b border-brand-100">
       <div class="mx-auto max-w-6xl px-4 py-14 md:py-16">
         <nav class="mb-5 text-sm text-earth-600" aria-label="Okruszki">
-          <a href="/realizacje" class="hover:text-brand-700">Realizacje</a>
+          <a href={url("/realizacje")} class="hover:text-brand-700">Realizacje</a>
           <span class="mx-2" aria-hidden="true">/</span>
           <span class="text-earth-800">{title}</span>
         </nav>
@@ -70,7 +71,7 @@ const podobne = (await getCollection("realizacje"))
     <div class="mx-auto max-w-4xl px-4 py-12">
       {zdjecieGlowne && (
         <img
-          src={zdjecieGlowne}
+          src={url(zdjecieGlowne)}
           alt={`Realizacja: ${title} — ${lokalizacja}`}
           class="mb-10 w-full rounded-2xl aspect-[16/9] object-cover shadow-lg shadow-brand-900/10"
         />
@@ -86,7 +87,7 @@ const podobne = (await getCollection("realizacje"))
           <div class="grid gap-4 sm:grid-cols-2">
             {galeria.map((foto: string, i: number) => (
               <img
-                src={foto}
+                src={url(foto)}
                 alt={`${title} — zdjęcie ${i + 2}`}
                 loading="lazy"
                 class="w-full rounded-xl aspect-[4/3] object-cover"

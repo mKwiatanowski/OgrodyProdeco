@@ -1,5 +1,6 @@
 ---
 import Icon from "./Icon.astro";
+import { url } from "../lib/url";
 const year = new Date().getFullYear();
 
 const oferta = [
@@ -45,7 +46,7 @@ const oferta = [
       <ul class="space-y-2 text-sm text-earth-200">
         {oferta.map((item) => (
           <li>
-            <a href={item.href} class="hover:text-white transition-colors">{item.label}</a>
+            <a href={url(item.href)} class="hover:text-white transition-colors">{item.label}</a>
           </li>
         ))}
       </ul>
@@ -54,10 +55,10 @@ const oferta = [
     <div>
       <p class="font-semibold text-white mb-4">Na skróty</p>
       <ul class="space-y-2 text-sm text-earth-200">
-        <li><a href="/o-nas" class="hover:text-white transition-colors">O nas</a></li>
-        <li><a href="/realizacje" class="hover:text-white transition-colors">Realizacje</a></li>
-        <li><a href="/kontakt" class="hover:text-white transition-colors">Kontakt</a></li>
-        <li><a href="/kontakt" class="hover:text-white transition-colors">Bezpłatna wycena</a></li>
+        <li><a href={url("/o-nas")} class="hover:text-white transition-colors">O nas</a></li>
+        <li><a href={url("/realizacje")} class="hover:text-white transition-colors">Realizacje</a></li>
+        <li><a href={url("/kontakt")} class="hover:text-white transition-colors">Kontakt</a></li>
+        <li><a href={url("/kontakt")} class="hover:text-white transition-colors">Bezpłatna wycena</a></li>
       </ul>
     </div>
 

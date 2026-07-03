@@ -1,5 +1,6 @@
 ---
 import Icon from "./Icon.astro";
+import { url } from "../lib/url";
 
 interface Props {
   title: string;
@@ -25,7 +26,7 @@ const {
 
 <section class="relative isolate overflow-hidden">
   <img
-    src={image}
+    src={url(image)}
     alt={imageAlt}
     class="absolute inset-0 -z-10 h-full w-full object-cover"
   />
@@ -45,13 +46,13 @@ const {
       </p>
       <div class="mt-10 flex flex-wrap gap-4">
         <a
-          href={primaryCtaHref}
+          href={url(primaryCtaHref)}
           class="rounded-full bg-brand-500 px-7 py-3.5 font-semibold text-white shadow-lg shadow-brand-900/30 hover:bg-brand-400 transition-colors"
         >
           {primaryCtaLabel}
         </a>
         <a
-          href={secondaryCtaHref}
+          href={url(secondaryCtaHref)}
           class="rounded-full border border-white/40 bg-white/10 px-7 py-3.5 font-semibold text-white backdrop-blur hover:bg-white/20 transition-colors"
         >
           {secondaryCtaLabel}

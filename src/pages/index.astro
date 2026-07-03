@@ -7,6 +7,7 @@ import RealizacjaCard from "../components/RealizacjaCard.astro";
 import Testimonial from "../components/Testimonial.astro";
 import CTASection from "../components/CTASection.astro";
 import Icon from "../components/Icon.astro";
+import { url } from "../lib/url";
 import { getCollection } from "astro:content";
 
 const uslugi = (await getCollection("uslugi")).sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
@@ -107,7 +108,7 @@ const kroki = [
             Opisz nam swoją działkę — podpowiemy, co ma sens i ile to kosztuje.
           </p>
           <a
-            href="/kontakt"
+            href={url("/kontakt")}
             class="inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-brand-700 hover:bg-brand-50 transition-colors"
           >
             Bezpłatna wycena
@@ -140,7 +141,7 @@ const kroki = [
       </div>
       <div class="mt-10 text-center">
         <a
-          href="/realizacje"
+          href={url("/realizacje")}
           class="inline-flex items-center gap-2 rounded-full border border-brand-300 px-6 py-3 font-semibold text-brand-700 hover:bg-brand-50 transition-colors"
         >
           Zobacz wszystkie realizacje

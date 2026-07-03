@@ -1,0 +1,41 @@
+name: Deploy na GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # GitHub Pages serwuje stronę z podkatalogu /OgrodyProdeco.
+      # Po podpięciu własnej domeny (ogrodyprodeco.pl) usuń obie zmienne —
+      # astro.config.mjs wróci wtedy do domyślnych wartości produkcyjnych.
+      PUBLIC_SITE_URL: https://mkwiatanowski.github.io
+      PUBLIC_SITE_BASE: /OgrodyProdeco
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build Astro
+        uses: withastro/action@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy do GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CTASection from "../../components/CTASection.astro";
 import Icon from "../../components/Icon.astro";
+import { url } from "../../lib/url";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -24,7 +25,7 @@ const pozostale = (await getCollection("uslugi"))
   <section class="bg-brand-50 border-b border-brand-100">
     <div class="mx-auto max-w-6xl px-4 py-14 md:py-20">
       <nav class="mb-5 text-sm text-earth-600" aria-label="Okruszki">
-        <a href="/oferta" class="hover:text-brand-700">Oferta</a>
+        <a href={url("/oferta")} class="hover:text-brand-700">Oferta</a>
         <span class="mx-2" aria-hidden="true">/</span>
         <span class="text-earth-800">{usluga.data.title}</span>
       </nav>
@@ -56,7 +57,7 @@ const pozostale = (await getCollection("uslugi"))
           Bezpłatna wycena — opisz działkę, odpowiemy w 1–2 dni robocze.
         </p>
         <a
-          href="/kontakt"
+          href={url("/kontakt")}
           class="block rounded-full bg-white px-5 py-2.5 text-center text-sm font-semibold text-brand-700 hover:bg-brand-50 transition-colors"
         >
           Napisz do nas
@@ -74,7 +75,7 @@ const pozostale = (await getCollection("uslugi"))
         <ul class="space-y-2.5 text-sm">
           {pozostale.map((u) => (
             <li>
-              <a href={`/oferta/${u.slug}`} class="flex items-center gap-2 text-earth-800 hover:text-brand-700 transition-colors">
+              <a href={url(`/oferta/${u.slug}`)} class="flex items-center gap-2 text-earth-800 hover:text-brand-700 transition-colors">
                 <Icon name="arrow-right" class="h-3.5 w-3.5 text-brand-400" />
                 {u.data.title}
               </a>
