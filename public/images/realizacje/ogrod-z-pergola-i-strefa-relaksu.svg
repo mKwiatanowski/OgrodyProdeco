@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8f5f0"/>
+      <stop offset="1" stop-color="#e1ecd3"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#sky)"/>
+  <circle cx="990" cy="170" r="85" fill="#f0e7d0"/>
+  <path d="M0 520 Q 300 460 600 505 T 1200 480 V900 H0 Z" fill="#a3c17e"/>
+  <path d="M0 640 Q 400 570 800 630 T 1200 610 V900 H0 Z" fill="#648937"/>
+  <!-- taras -->
+  <path d="M120 900 L 220 640 H 760 L 860 900 Z" fill="#d8c8ac"/>
+  <g stroke="#c4b193" stroke-width="6">
+    <line x1="190" y1="720" x2="800" y2="720"/>
+    <line x1="160" y1="800" x2="830" y2="800"/>
+  </g>
+  <!-- pergola -->
+  <g stroke="#4a3826" stroke-linecap="round">
+    <line x1="270" y1="640" x2="250" y2="360" stroke-width="18"/>
+    <line x1="710" y1="640" x2="730" y2="360" stroke-width="18"/>
+    <line x1="210" y1="360" x2="770" y2="360" stroke-width="16"/>
+    <line x1="300" y1="358" x2="300" y2="330" stroke-width="10"/>
+    <line x1="400" y1="358" x2="400" y2="330" stroke-width="10"/>
+    <line x1="500" y1="358" x2="500" y2="330" stroke-width="10"/>
+    <line x1="600" y1="358" x2="600" y2="330" stroke-width="10"/>
+    <line x1="680" y1="358" x2="680" y2="330" stroke-width="10"/>
+    <line x1="210" y1="330" x2="770" y2="330" stroke-width="12"/>
+  </g>
+  <!-- pnącze na pergoli -->
+  <g fill="#4d6c2a">
+    <circle cx="255" cy="380" r="40"/>
+    <circle cx="235" cy="430" r="28"/>
+    <circle cx="740" cy="345" r="34"/>
+    <circle cx="700" cy="332" r="24"/>
+  </g>
+  <!-- siedziska -->
+  <rect x="360" y="560" width="260" height="46" rx="12" fill="#4a3826"/>
+  <rect x="380" y="530" width="220" height="34" rx="10" fill="#ece4d6"/>
+  <!-- rabaty po bokach -->
+  <g fill="#31431f">
+    <ellipse cx="990" cy="760" rx="150" ry="56"/>
+    <ellipse cx="80" cy="700" rx="110" ry="48"/>
+  </g>
+  <g fill="#648937">
+    <ellipse cx="930" cy="730" rx="70" ry="38"/>
+    <ellipse cx="1060" cy="740" rx="66" ry="34"/>
+    <ellipse cx="60" cy="672" rx="56" ry="30"/>
+  </g>
+  <g stroke="#82a856" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M960 700 q -10 -60 -30 -82"/>
+    <path d="M975 700 q 2 -66 -4 -92"/>
+    <path d="M990 700 q 14 -56 34 -78"/>
+  </g>
+</svg>

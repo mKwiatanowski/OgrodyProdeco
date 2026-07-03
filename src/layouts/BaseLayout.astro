@@ -1,0 +1,91 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+const {
+  title,
+  description = "PRODECO – projektowanie i realizacja ogrodów, nawierzchni i zieleni. Sanok, Podkarpacie.",
+  ogImage = "/images/hero/hero-ogrod.svg",
+} = Astro.props;
+
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImageUrl = new URL(ogImage, Astro.site);
+
+const localBusiness = {
+  "@context": "https://schema.org",
+  "@type": "Landscaper",
+  name: "PRODECO Beata Bach",
+  slogan: "Prodeco – mamy rękę do ogrodu!",
+  description:
+    "Projektowanie i realizacja ogrodów, nawierzchni i zieleni. Sanok i województwo podkarpackie, od 2011 roku.",
+  url: "https://ogrodyprodeco.pl",
+  email: "kontakt@ogrodyprodeco.pl",
+  telephone: "+48608354401",
+  foundingDate: "2011",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "ul. Szopena 10/105",
+    postalCode: "38-500",
+    addressLocality: "Sanok",
+    addressRegion: "podkarpackie",
+    addressCountry: "PL",
+  },
+  areaServed: "Województwo podkarpackie",
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "08:00",
+    closes: "17:00",
+  },
+  sameAs: [
+    "https://www.facebook.com/Ogrodyprodeco",
+    "https://www.instagram.com/ogrody_z_prodeco/",
+  ],
+};
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} · PRODECO</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:title" content={`${title} · PRODECO`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:site_name" content="PRODECO" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusiness)} />
+  </head>
+  <body>
+    <a
+      href="#tresc"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-lg focus:bg-brand-700 focus:px-4 focus:py-2 focus:text-white"
+    >
+      Przejdź do treści
+    </a>
+    <Header />
+    <main id="tresc">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

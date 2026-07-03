@@ -1,0 +1,59 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-brand-50: #f2f7ec;
+  --color-brand-100: #e1ecd3;
+  --color-brand-200: #c5d9ac;
+  --color-brand-300: #a3c17e;
+  --color-brand-400: #82a856;
+  --color-brand-500: #648937;
+  --color-brand-600: #4d6c2a;
+  --color-brand-700: #3c5423;
+  --color-brand-800: #31431f;
+  --color-brand-900: #29391c;
+
+  --color-earth-50: #f8f5f0;
+  --color-earth-100: #ece4d6;
+  --color-earth-200: #d8c8ac;
+  --color-earth-600: #6b573f;
+  --color-earth-700: #57452f;
+  --color-earth-800: #4a3826;
+  --color-earth-900: #362819;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-earth-900 font-sans antialiased;
+}
+
+h1, h2, h3, h4 {
+  @apply font-display;
+}
+
+::selection {
+  @apply bg-brand-200 text-brand-900;
+}
+
+/* Delikatne wejście sekcji — bez JS, szanuje prefers-reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-up {
+    animation: fade-up 0.7s ease-out both;
+  }
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

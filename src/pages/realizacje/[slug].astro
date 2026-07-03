@@ -1,0 +1,122 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import RealizacjaCard from "../../components/RealizacjaCard.astro";
+import CTASection from "../../components/CTASection.astro";
+import Icon from "../../components/Icon.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const realizacje = await getCollection("realizacje");
+  return realizacje.map((r) => ({
+    params: { slug: r.slug },
+    props: { realizacja: r },
+  }));
+}
+
+const { realizacja } = Astro.props;
+const { Content } = await realizacja.render();
+const { title, lokalizacja, rok, powierzchnia, tagi, zdjecieGlowne, galeria } = realizacja.data;
+
+const podobne = (await getCollection("realizacje"))
+  .filter((r) => r.slug !== realizacja.slug && r.data.tagi.some((t) => tagi.includes(t)))
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={`${title} — realizacja`}
+  description={`Realizacja PRODECO: ${title}, ${lokalizacja} (${rok}). ${tagi.join(", ")}.`}
+  ogImage={zdjecieGlowne}
+>
+  <article>
+    <section class="bg-brand-50 border-b border-brand-100">
+      <div class="mx-auto max-w-6xl px-4 py-14 md:py-16">
+        <nav class="mb-5 text-sm text-earth-600" aria-label="Okruszki">
+          <a href="/realizacje" class="hover:text-brand-700">Realizacje</a>
+          <span class="mx-2" aria-hidden="true">/</span>
+          <span class="text-earth-800">{title}</span>
+        </nav>
+        <h1 class="max-w-3xl text-3xl md:text-5xl font-semibold text-earth-900 text-balance">{title}</h1>
+        <dl class="mt-6 flex flex-wrap gap-x-8 gap-y-3 text-sm">
+          <div class="flex items-center gap-2">
+            <Icon name="map-pin" class="h-4 w-4 text-brand-500" />
+            <dt class="sr-only">Lokalizacja</dt>
+            <dd class="font-medium text-earth-800">{lokalizacja}</dd>
+          </div>
+          <div class="flex items-center gap-2">
+            <Icon name="clock" class="h-4 w-4 text-brand-500" />
+            <dt class="sr-only">Rok realizacji</dt>
+            <dd class="font-medium text-earth-800">{rok}</dd>
+          </div>
+          {powierzchnia && (
+            <div class="flex items-center gap-2">
+              <Icon name="home" class="h-4 w-4 text-brand-500" />
+              <dt class="sr-only">Powierzchnia</dt>
+              <dd class="font-medium text-earth-800">{powierzchnia} m²</dd>
+            </div>
+          )}
+        </dl>
+        {tagi.length > 0 && (
+          <div class="mt-4 flex flex-wrap gap-2">
+            {tagi.map((tag: string) => (
+              <span class="rounded-full bg-white px-3 py-1 text-xs font-medium text-brand-700 ring-1 ring-brand-200">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <div class="mx-auto max-w-4xl px-4 py-12">
+      {zdjecieGlowne && (
+        <img
+          src={zdjecieGlowne}
+          alt={`Realizacja: ${title} — ${lokalizacja}`}
+          class="mb-10 w-full rounded-2xl aspect-[16/9] object-cover shadow-lg shadow-brand-900/10"
+        />
+      )}
+
+      <div class="prose prose-lg prose-headings:font-display prose-a:text-brand-700 max-w-none">
+        <Content />
+      </div>
+
+      {galeria.length > 0 && (
+        <div class="mt-12">
+          <h2 class="font-display text-2xl text-earth-900 mb-6">Galeria</h2>
+          <div class="grid gap-4 sm:grid-cols-2">
+            {galeria.map((foto: string, i: number) => (
+              <img
+                src={foto}
+                alt={`${title} — zdjęcie ${i + 2}`}
+                loading="lazy"
+                class="w-full rounded-xl aspect-[4/3] object-cover"
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </article>
+
+  {podobne.length > 0 && (
+    <section class="bg-brand-50">
+      <div class="mx-auto max-w-6xl px-4 py-16">
+        <h2 class="font-display text-2xl md:text-3xl text-earth-900 mb-8">Podobne realizacje</h2>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {podobne.map((r) => (
+            <RealizacjaCard
+              title={r.data.title}
+              lokalizacja={r.data.lokalizacja}
+              rok={r.data.rok}
+              href={`/realizacje/${r.slug}`}
+              image={r.data.zdjecieGlowne}
+              tagi={r.data.tagi}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CTASection title="Chcesz podobny ogród? Napisz do nas" />
+</BaseLayout>

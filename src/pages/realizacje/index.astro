@@ -1,0 +1,104 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import RealizacjaCard from "../../components/RealizacjaCard.astro";
+import CTASection from "../../components/CTASection.astro";
+import { getCollection } from "astro:content";
+
+const realizacje = (await getCollection("realizacje")).sort((a, b) =>
+  b.data.rok.localeCompare(a.data.rok)
+);
+
+const tagi = [...new Set(realizacje.flatMap((r) => r.data.tagi))].sort((a, b) =>
+  a.localeCompare(b, "pl")
+);
+---
+
+<BaseLayout
+  title="Realizacje — ogrody, nawierzchnie, zieleń"
+  description="Zrealizowane przez PRODECO ogrody przydomowe, nawierzchnie z kostki brukowej i tereny zieleni publicznej. Sanok i Podkarpacie."
+>
+  <section class="bg-brand-50 border-b border-brand-100">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:py-24">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-500">Portfolio</p>
+      <h1 class="max-w-3xl text-4xl md:text-5xl font-semibold text-earth-900 text-balance">
+        Ogrody, które mówią same za siebie
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-earth-700">
+        Wybrane realizacje z ostatnich lat — od prywatnych ogrodów po zieleń dla obiektów
+        użyteczności publicznej.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-14">
+    <!-- filtry tagów -->
+    <div class="mb-10 flex flex-wrap gap-2" role="group" aria-label="Filtruj realizacje wg zakresu prac">
+      <button
+        type="button"
+        data-filter="*"
+        class="filter-btn rounded-full px-4 py-1.5 text-sm font-medium ring-1 transition-colors bg-brand-600 text-white ring-brand-600"
+      >
+        Wszystkie
+      </button>
+      {tagi.map((tag) => (
+        <button
+          type="button"
+          data-filter={tag}
+          class="filter-btn rounded-full px-4 py-1.5 text-sm font-medium ring-1 transition-colors bg-white text-earth-800 ring-brand-200 hover:bg-brand-50"
+        >
+          {tag}
+        </button>
+      ))}
+    </div>
+
+    <div id="realizacje-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {realizacje.map((r) => (
+        <div data-tagi={r.data.tagi.join("|")}>
+          <RealizacjaCard
+            title={r.data.title}
+            lokalizacja={r.data.lokalizacja}
+            rok={r.data.rok}
+            href={`/realizacje/${r.slug}`}
+            image={r.data.zdjecieGlowne}
+            tagi={r.data.tagi}
+          />
+        </div>
+      ))}
+    </div>
+    <p id="brak-wynikow" class="hidden py-12 text-center text-earth-600">
+      Brak realizacji dla wybranego filtra.
+    </p>
+  </section>
+
+  <CTASection title="Chcesz podobny ogród? Napisz do nas" />
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const items = document.querySelectorAll<HTMLElement>("#realizacje-grid > div");
+  const empty = document.getElementById("brak-wynikow");
+
+  const activeClasses = ["bg-brand-600", "text-white", "ring-brand-600"];
+  const idleClasses = ["bg-white", "text-earth-800", "ring-brand-200", "hover:bg-brand-50"];
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      buttons.forEach((b) => {
+        b.classList.remove(...activeClasses);
+        b.classList.add(...idleClasses);
+      });
+      btn.classList.remove(...idleClasses);
+      btn.classList.add(...activeClasses);
+
+      const filter = btn.dataset.filter ?? "*";
+      let visible = 0;
+      items.forEach((item) => {
+        const tagi = (item.dataset.tagi ?? "").split("|");
+        const show = filter === "*" || tagi.includes(filter);
+        item.classList.toggle("hidden", !show);
+        if (show) visible++;
+      });
+      empty?.classList.toggle("hidden", visible > 0);
+    });
+  });
+</script>

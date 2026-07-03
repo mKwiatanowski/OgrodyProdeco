@@ -1,0 +1,173 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import RealizacjaCard from "../components/RealizacjaCard.astro";
+import Testimonial from "../components/Testimonial.astro";
+import CTASection from "../components/CTASection.astro";
+import Icon from "../components/Icon.astro";
+import { getCollection } from "astro:content";
+
+const uslugi = (await getCollection("uslugi")).sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
+const realizacje = (await getCollection("realizacje")).filter((r) => r.data.wyrozniona).slice(0, 3);
+const opinie = (await getCollection("opinie")).slice(0, 3);
+
+const fakty = [
+  { liczba: "15+", opis: "lat doświadczenia w regionie" },
+  { liczba: "2D/3D", opis: "projekt z wizualizacją i kosztorysem" },
+  { liczba: "mgr inż.", opis: "ogrodnictwa — wykształcenie kierunkowe" },
+  { liczba: "B2C + B2B", opis: "klienci indywidualni i instytucjonalni" },
+];
+
+const kroki = [
+  {
+    tytul: "Konsultacja i wizja lokalna",
+    opis: "Spotykamy się na działce, poznajemy Twoje potrzeby, nasłonecznienie i warunki terenu.",
+  },
+  {
+    tytul: "Projekt 2D/3D + kosztorys",
+    opis: "Koncepcja z wizualizacją, harmonogram prac i pełne zestawienie materiałów oraz roślin.",
+  },
+  {
+    tytul: "Realizacja",
+    opis: "Prace wykonuje nasz zespół — od nawierzchni i małej architektury po nasadzenia.",
+  },
+  {
+    tytul: "Pielęgnacja",
+    opis: "Opieka po zakończeniu prac, by ogród rozwijał się zgodnie z projektem.",
+  },
+];
+---
+
+<BaseLayout
+  title="Projektowanie i realizacja ogrodów w Sanoku"
+  description="PRODECO — projektowanie ogrodów, nawierzchnie z kostki brukowej, mała architektura i oświetlenie. Sanok i Podkarpacie, od 2011 roku. Bezpłatna wycena."
+>
+  <Hero
+    title="Ogród, który zaprojektujemy razem z Tobą"
+    subtitle="Kompleksowe projektowanie i realizacja ogrodów, nawierzchni i zieleni — od koncepcji 2D/3D po pielęgnację po zakończeniu prac."
+  />
+
+  <!-- pasek zaufania -->
+  <section class="border-b border-brand-100 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-10 grid grid-cols-2 gap-8 md:grid-cols-4">
+      {fakty.map((fakt) => (
+        <div class="text-center">
+          <p class="font-display text-2xl md:text-3xl font-semibold text-brand-700">{fakt.liczba}</p>
+          <p class="mt-1 text-sm text-earth-700">{fakt.opis}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- jak pracujemy -->
+  <section class="mx-auto max-w-6xl px-4 py-20">
+    <SectionHeading
+      eyebrow="Proces"
+      title="Jak pracujemy"
+      lead="Jeden partner na cały proces — wiesz, co się dzieje i ile kosztuje, zanim ruszą prace."
+    />
+    <ol class="grid gap-10 md:grid-cols-4 md:gap-6">
+      {kroki.map((krok, i) => (
+        <li class="relative text-center md:text-left">
+          {i < kroki.length - 1 && (
+            <span class="hidden md:block absolute top-6 left-14 right-0 h-px bg-brand-200" aria-hidden="true"></span>
+          )}
+          <span class="relative z-10 mx-auto md:mx-0 mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-brand-600 font-display text-lg font-semibold text-white ring-4 ring-brand-50">
+            {i + 1}
+          </span>
+          <h3 class="font-display text-lg text-earth-900 mb-1.5">{krok.tytul}</h3>
+          <p class="text-sm text-earth-700 leading-relaxed">{krok.opis}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- oferta -->
+  <section class="bg-brand-50">
+    <div class="mx-auto max-w-6xl px-4 py-20">
+      <SectionHeading
+        eyebrow="Oferta"
+        title="Od koncepcji po ostatnią roślinę w ziemi"
+        lead="Pięć obszarów, które składają się na kompletny ogród — możesz zamówić całość albo wybrany etap."
+      />
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {uslugi.map((usluga) => (
+          <ServiceCard
+            title={usluga.data.title}
+            description={usluga.data.skrot}
+            href={`/oferta/${usluga.slug}`}
+            icon={usluga.data.ikona}
+          />
+        ))}
+        <div class="flex flex-col justify-center rounded-2xl bg-brand-700 p-7 text-white">
+          <h3 class="font-display text-xl mb-2">Nie wiesz, od czego zacząć?</h3>
+          <p class="text-sm text-brand-100 leading-relaxed mb-5">
+            Opisz nam swoją działkę — podpowiemy, co ma sens i ile to kosztuje.
+          </p>
+          <a
+            href="/kontakt"
+            class="inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-brand-700 hover:bg-brand-50 transition-colors"
+          >
+            Bezpłatna wycena
+            <Icon name="arrow-right" class="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- wyróżnione realizacje -->
+  {realizacje.length > 0 && (
+    <section class="mx-auto max-w-6xl px-4 py-20">
+      <SectionHeading
+        eyebrow="Portfolio"
+        title="Wybrane realizacje"
+        lead="Ogrody przydomowe, nawierzchnie i zieleń publiczna — zobacz, jak pracujemy w terenie."
+      />
+      <div class="grid gap-6 md:grid-cols-3">
+        {realizacje.map((r) => (
+          <RealizacjaCard
+            title={r.data.title}
+            lokalizacja={r.data.lokalizacja}
+            rok={r.data.rok}
+            href={`/realizacje/${r.slug}`}
+            image={r.data.zdjecieGlowne}
+            tagi={r.data.tagi}
+          />
+        ))}
+      </div>
+      <div class="mt-10 text-center">
+        <a
+          href="/realizacje"
+          class="inline-flex items-center gap-2 rounded-full border border-brand-300 px-6 py-3 font-semibold text-brand-700 hover:bg-brand-50 transition-colors"
+        >
+          Zobacz wszystkie realizacje
+          <Icon name="arrow-right" class="h-4 w-4" />
+        </a>
+      </div>
+    </section>
+  )}
+
+  <!-- opinie -->
+  {opinie.length > 0 && (
+    <section class="bg-brand-50">
+      <div class="mx-auto max-w-6xl px-4 py-20">
+        <SectionHeading eyebrow="Opinie" title="Co mówią nasi klienci" />
+        <div class="grid gap-6 md:grid-cols-3">
+          {opinie.map(async (op) => {
+            const { Content } = await op.render();
+            return (
+              <Testimonial autor={op.data.autor} ocena={op.data.ocena}>
+                <Content />
+              </Testimonial>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CTASection />
+</BaseLayout>

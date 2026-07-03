@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8f5f0"/>
+      <stop offset="1" stop-color="#e1ecd3"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#sky)"/>
+  <circle cx="200" cy="160" r="80" fill="#f0e7d0"/>
+  <!-- tarasowana skarpa: trzy poziomy -->
+  <path d="M0 470 Q 300 430 700 455 T 1200 440 V900 H0 Z" fill="#a3c17e"/>
+  <!-- murek górny -->
+  <g>
+    <rect x="0" y="500" width="1200" height="56" fill="#d8c8ac"/>
+    <g fill="#c4b193">
+      <rect x="40" y="508" width="120" height="18" rx="4"/>
+      <rect x="200" y="508" width="120" height="18" rx="4"/>
+      <rect x="360" y="508" width="120" height="18" rx="4"/>
+      <rect x="520" y="508" width="120" height="18" rx="4"/>
+      <rect x="680" y="508" width="120" height="18" rx="4"/>
+      <rect x="840" y="508" width="120" height="18" rx="4"/>
+      <rect x="1000" y="508" width="120" height="18" rx="4"/>
+      <rect x="120" y="532" width="120" height="18" rx="4"/>
+      <rect x="280" y="532" width="120" height="18" rx="4"/>
+      <rect x="440" y="532" width="120" height="18" rx="4"/>
+      <rect x="600" y="532" width="120" height="18" rx="4"/>
+      <rect x="760" y="532" width="120" height="18" rx="4"/>
+      <rect x="920" y="532" width="120" height="18" rx="4"/>
+    </g>
+  </g>
+  <rect x="0" y="556" width="1200" height="120" fill="#648937"/>
+  <!-- kaskadowe nasadzenia zwisające z murku -->
+  <g fill="#4d6c2a">
+    <ellipse cx="150" cy="560" rx="70" ry="34"/>
+    <ellipse cx="480" cy="556" rx="80" ry="38"/>
+    <ellipse cx="820" cy="560" rx="72" ry="34"/>
+    <ellipse cx="1100" cy="556" rx="64" ry="30"/>
+  </g>
+  <!-- murek dolny -->
+  <g>
+    <rect x="0" y="676" width="1200" height="52" fill="#d8c8ac"/>
+    <g fill="#c4b193">
+      <rect x="80" y="684" width="110" height="16" rx="4"/>
+      <rect x="230" y="684" width="110" height="16" rx="4"/>
+      <rect x="380" y="684" width="110" height="16" rx="4"/>
+      <rect x="530" y="684" width="110" height="16" rx="4"/>
+      <rect x="680" y="684" width="110" height="16" rx="4"/>
+      <rect x="830" y="684" width="110" height="16" rx="4"/>
+      <rect x="980" y="684" width="110" height="16" rx="4"/>
+      <rect x="150" y="706" width="110" height="16" rx="4"/>
+      <rect x="300" y="706" width="110" height="16" rx="4"/>
+      <rect x="450" y="706" width="110" height="16" rx="4"/>
+      <rect x="600" y="706" width="110" height="16" rx="4"/>
+      <rect x="750" y="706" width="110" height="16" rx="4"/>
+      <rect x="900" y="706" width="110" height="16" rx="4"/>
+    </g>
+  </g>
+  <rect x="0" y="728" width="1200" height="172" fill="#82a856"/>
+  <!-- rabata na dole -->
+  <g fill="#31431f">
+    <ellipse cx="300" cy="820" rx="140" ry="48"/>
+    <ellipse cx="900" cy="830" rx="160" ry="50"/>
+  </g>
+  <g fill="#648937">
+    <ellipse cx="240" cy="795" rx="66" ry="32"/>
+    <ellipse cx="370" cy="800" rx="60" ry="30"/>
+    <ellipse cx="840" cy="805" rx="72" ry="34"/>
+    <ellipse cx="980" cy="808" rx="64" ry="30"/>
+  </g>
+  <!-- drzewko na górnym tarasie -->
+  <g>
+    <rect x="890" y="420" width="16" height="86" rx="6" fill="#4a3826"/>
+    <circle cx="898" cy="382" r="66" fill="#3c5423"/>
+  </g>
+</svg>

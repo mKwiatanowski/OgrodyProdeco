@@ -1,0 +1,108 @@
+---
+import Icon from "./Icon.astro";
+
+const nav = [
+  { href: "/", label: "Start" },
+  { href: "/o-nas", label: "O nas" },
+  { href: "/oferta", label: "Oferta" },
+  { href: "/realizacje", label: "Realizacje" },
+  { href: "/kontakt", label: "Kontakt" },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-brand-100">
+  <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-4">
+    <a href="/" class="flex items-baseline gap-2">
+      <span class="font-display text-2xl font-semibold text-brand-700">PRODECO</span>
+      <span class="hidden lg:inline text-xs text-earth-600">mamy rękę do ogrodu</span>
+    </a>
+
+    <nav class="hidden md:flex gap-7 text-sm font-medium text-earth-800" aria-label="Nawigacja główna">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          aria-current={isActive(item.href) ? "page" : undefined}
+          class:list={[
+            "py-2 border-b-2 transition-colors",
+            isActive(item.href)
+              ? "border-brand-600 text-brand-700"
+              : "border-transparent hover:text-brand-600",
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        href="tel:+48608354401"
+        class="hidden lg:flex items-center gap-2 text-sm font-semibold text-earth-800 hover:text-brand-700 transition-colors"
+      >
+        <Icon name="phone" class="h-4 w-4" />
+        608 354 401
+      </a>
+      <a
+        href="/kontakt"
+        class="hidden sm:inline-block rounded-full bg-brand-600 px-5 py-2 text-sm font-semibold text-white hover:bg-brand-700 transition-colors"
+      >
+        Bezpłatna wycena
+      </a>
+
+      <button
+        id="menu-toggle"
+        type="button"
+        class="md:hidden inline-flex items-center justify-center rounded-lg p-2 text-earth-800 hover:bg-brand-50"
+        aria-expanded="false"
+        aria-controls="menu-mobilne"
+        aria-label="Otwórz menu"
+      >
+        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="4" y1="6" x2="20" y2="6" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="18" x2="20" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav id="menu-mobilne" class="hidden md:hidden border-t border-brand-100 bg-white" aria-label="Nawigacja mobilna">
+    <div class="mx-auto max-w-6xl px-4 py-3 flex flex-col gap-1">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          aria-current={isActive(item.href) ? "page" : undefined}
+          class:list={[
+            "rounded-lg px-3 py-2.5 font-medium",
+            isActive(item.href) ? "bg-brand-50 text-brand-700" : "text-earth-800 hover:bg-brand-50",
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a
+        href="/kontakt"
+        class="mt-2 rounded-full bg-brand-600 px-5 py-2.5 text-center font-semibold text-white"
+      >
+        Bezpłatna wycena
+      </a>
+      <a href="tel:+48608354401" class="px-3 py-2 text-center text-sm text-earth-700">
+        Zadzwoń: 608 354 401
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("menu-mobilne");
+  toggle?.addEventListener("click", () => {
+    const open = menu?.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Zamknij menu" : "Otwórz menu");
+  });
+</script>

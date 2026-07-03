@@ -1,0 +1,114 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm.astro";
+import Icon from "../components/Icon.astro";
+
+const kontakty = [
+  {
+    ikona: "phone",
+    tytul: "Beata Bach",
+    opis: "projekty, sprawy merytoryczne",
+    wartosc: "608 354 401",
+    href: "tel:+48608354401",
+  },
+  {
+    ikona: "phone",
+    tytul: "Dawid Bach",
+    opis: "realizacja, koordynacja prac",
+    wartosc: "793 751 983",
+    href: "tel:+48793751983",
+  },
+  {
+    ikona: "mail",
+    tytul: "E-mail",
+    opis: "odpowiadamy w 1–2 dni robocze",
+    wartosc: "kontakt@ogrodyprodeco.pl",
+    href: "mailto:kontakt@ogrodyprodeco.pl",
+  },
+  {
+    ikona: "clock",
+    tytul: "Godziny pracy",
+    opis: "obszar działania: woj. podkarpackie",
+    wartosc: "pon–pt 8:00–17:00",
+  },
+];
+---
+
+<BaseLayout
+  title="Kontakt — bezpłatna wycena"
+  description="Skontaktuj się z PRODECO — Sanok, ul. Szopena 10/105. Bezpłatna wycena projektu i realizacji ogrodu. Telefon: 608 354 401."
+>
+  <section class="bg-brand-50 border-b border-brand-100">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:py-20">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-500">Kontakt</p>
+      <h1 class="max-w-3xl text-4xl md:text-5xl font-semibold text-earth-900 text-balance">
+        Porozmawiajmy o Twoim ogrodzie
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-earth-700">
+        Napisz lub zadzwoń — wycena i pierwsza rozmowa o możliwościach działki są bezpłatne.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-14 grid gap-12 lg:grid-cols-2">
+    <div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {kontakty.map((k) => (
+          <div class="rounded-2xl border border-brand-100 p-5">
+            <span class="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+              <Icon name={k.ikona} class="h-5 w-5" />
+            </span>
+            <p class="font-semibold text-earth-900">{k.tytul}</p>
+            <p class="text-xs text-earth-600 mb-1.5">{k.opis}</p>
+            {k.href ? (
+              <a href={k.href} class="font-semibold text-brand-700 hover:underline break-all">
+                {k.wartosc}
+              </a>
+            ) : (
+              <p class="font-semibold text-brand-700">{k.wartosc}</p>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-6 rounded-2xl border border-brand-100 p-5">
+        <p class="flex items-center gap-2 font-semibold text-earth-900 mb-1">
+          <Icon name="map-pin" class="h-4 w-4 text-brand-600" />
+          PRODECO Beata Bach
+        </p>
+        <p class="text-sm text-earth-700 mb-4">ul. Szopena 10/105, 38-500 Sanok</p>
+        <div class="aspect-video overflow-hidden rounded-xl">
+          <iframe
+            title="Mapa — lokalizacja PRODECO w Sanoku"
+            class="h-full w-full"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Szopena+10,+38-500+Sanok&output=embed"
+          ></iframe>
+        </div>
+      </div>
+
+      <div class="mt-6 flex items-center gap-3 text-sm text-earth-700">
+        <span>Zobacz nasze realizacje na bieżąco:</span>
+        <a
+          href="https://www.facebook.com/Ogrodyprodeco"
+          class="inline-flex items-center gap-1.5 font-semibold text-brand-700 hover:underline"
+          rel="noopener"
+        >
+          <Icon name="facebook" class="h-4 w-4" /> Facebook
+        </a>
+        <a
+          href="https://www.instagram.com/ogrody_z_prodeco/"
+          class="inline-flex items-center gap-1.5 font-semibold text-brand-700 hover:underline"
+          rel="noopener"
+        >
+          <Icon name="instagram" class="h-4 w-4" /> Instagram
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <ContactForm />
+    </div>
+  </section>
+</BaseLayout>

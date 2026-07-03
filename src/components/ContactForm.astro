@@ -1,0 +1,116 @@
+---
+// Formularz kontaktowy. Wysyłka: ustaw PUBLIC_CONTACT_FORM_ENDPOINT w .env
+// (np. endpoint Formspree/Resend) — bez niego formularz otwiera klienta poczty (mailto).
+const endpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT ?? "";
+
+const typyZapytan = [
+  "Projekt ogrodu",
+  "Nawierzchnie i podjazdy",
+  "Mała architektura",
+  "Oświetlenie ogrodowe",
+  "Pielęgnacja zieleni",
+  "Inne",
+];
+
+const inputClass =
+  "rounded-xl border border-brand-200 bg-white px-4 py-2.5 text-earth-900 placeholder:text-earth-600/50 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200 transition";
+---
+
+<form
+  id="contact-form"
+  class="grid gap-5 rounded-2xl border border-brand-100 bg-white p-7 shadow-sm"
+  method="POST"
+  action={endpoint || undefined}
+  data-endpoint={endpoint}
+>
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div class="grid gap-1.5">
+      <label for="name" class="text-sm font-medium">Imię i nazwisko <span class="text-brand-600">*</span></label>
+      <input id="name" name="name" required autocomplete="name" class={inputClass} />
+    </div>
+    <div class="grid gap-1.5">
+      <label for="phone" class="text-sm font-medium">Telefon</label>
+      <input id="phone" name="phone" type="tel" autocomplete="tel" class={inputClass} />
+    </div>
+  </div>
+  <div class="grid gap-1.5">
+    <label for="email" class="text-sm font-medium">E-mail <span class="text-brand-600">*</span></label>
+    <input id="email" name="email" type="email" required autocomplete="email" class={inputClass} />
+  </div>
+  <div class="grid gap-1.5">
+    <label for="type" class="text-sm font-medium">Czego dotyczy zapytanie?</label>
+    <select id="type" name="type" class={inputClass}>
+      {typyZapytan.map((typ) => <option value={typ}>{typ}</option>)}
+    </select>
+  </div>
+  <div class="grid gap-1.5">
+    <label for="message" class="text-sm font-medium">Wiadomość <span class="text-brand-600">*</span></label>
+    <textarea
+      id="message"
+      name="message"
+      rows="5"
+      required
+      placeholder="Opisz krótko działkę i swoje oczekiwania — np. metraż, stan obecny, co ma się znaleźć w ogrodzie."
+      class={inputClass}
+    ></textarea>
+  </div>
+  <label class="flex items-start gap-2.5 text-xs text-earth-600">
+    <input type="checkbox" required class="mt-0.5 h-4 w-4 rounded border-brand-300 accent-brand-600" />
+    <span>
+      Wyrażam zgodę na przetwarzanie moich danych osobowych przez PRODECO Beata Bach w celu
+      obsługi zapytania (RODO). <span class="text-brand-600">*</span>
+    </span>
+  </label>
+  <button
+    type="submit"
+    class="w-full rounded-full bg-brand-600 px-6 py-3.5 font-semibold text-white hover:bg-brand-700 transition-colors"
+  >
+    Wyślij zapytanie
+  </button>
+  <p id="form-status" class="hidden text-sm font-medium" role="status"></p>
+  <p class="text-xs text-earth-600 text-center">
+    Odpowiadamy zwykle w ciągu 1–2 dni roboczych. Wolisz telefon?
+    <a href="tel:+48608354401" class="font-semibold text-brand-700 hover:underline">608 354 401</a>
+  </p>
+</form>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  const status = document.getElementById("form-status");
+
+  form?.addEventListener("submit", async (e) => {
+    const endpoint = form.dataset.endpoint;
+    if (!endpoint) {
+      // Brak skonfigurowanego endpointu — fallback na klienta poczty
+      e.preventDefault();
+      const data = new FormData(form);
+      const body = encodeURIComponent(
+        `Imię i nazwisko: ${data.get("name")}\nTelefon: ${data.get("phone")}\nE-mail: ${data.get("email")}\nTyp zapytania: ${data.get("type")}\n\n${data.get("message")}`
+      );
+      const subject = encodeURIComponent(`Zapytanie ze strony: ${data.get("type")}`);
+      window.location.href = `mailto:kontakt@ogrodyprodeco.pl?subject=${subject}&body=${body}`;
+      return;
+    }
+
+    e.preventDefault();
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      if (status) {
+        status.textContent = "Dziękujemy! Twoje zapytanie zostało wysłane — odezwiemy się wkrótce.";
+        status.className = "text-sm font-medium text-brand-700";
+      }
+    } catch {
+      if (status) {
+        status.textContent =
+          "Nie udało się wysłać formularza. Napisz na kontakt@ogrodyprodeco.pl lub zadzwoń: 608 354 401.";
+        status.className = "text-sm font-medium text-red-700";
+      }
+    }
+  });
+</script>

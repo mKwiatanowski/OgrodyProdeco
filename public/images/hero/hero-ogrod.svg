@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8f5f0"/>
+      <stop offset="0.6" stop-color="#ece4d6"/>
+      <stop offset="1" stop-color="#e1ecd3"/>
+    </linearGradient>
+    <linearGradient id="lawn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#82a856"/>
+      <stop offset="1" stop-color="#4d6c2a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <circle cx="1560" cy="240" r="130" fill="#f0e7d0" opacity="0.9"/>
+  <!-- distant tree line -->
+  <path d="M0 560 Q 240 480 480 540 T 960 520 T 1440 545 T 1920 510 V1080 H0 Z" fill="#c5d9ac"/>
+  <!-- mid hills -->
+  <path d="M0 660 Q 320 580 640 650 T 1280 630 T 1920 640 V1080 H0 Z" fill="#a3c17e"/>
+  <!-- lawn -->
+  <path d="M0 780 Q 480 700 960 770 T 1920 740 V1080 H0 Z" fill="url(#lawn)"/>
+  <!-- winding path -->
+  <path d="M860 1080 C 900 950 1010 900 1120 860 C 1230 820 1290 790 1320 750 L 1250 745 C 1200 785 1100 810 990 850 C 880 890 790 960 760 1080 Z" fill="#ece4d6" opacity="0.9"/>
+  <!-- trees left cluster -->
+  <g>
+    <rect x="286" y="620" width="22" height="120" rx="8" fill="#4a3826"/>
+    <circle cx="297" cy="560" r="105" fill="#3c5423"/>
+    <circle cx="240" cy="600" r="70" fill="#4d6c2a"/>
+    <circle cx="360" cy="605" r="62" fill="#648937"/>
+  </g>
+  <!-- trees right -->
+  <g>
+    <rect x="1665" y="560" width="20" height="130" rx="8" fill="#4a3826"/>
+    <circle cx="1675" cy="505" r="92" fill="#3c5423"/>
+    <circle cx="1740" cy="555" r="60" fill="#4d6c2a"/>
+  </g>
+  <!-- shrubs / beds -->
+  <g fill="#31431f">
+    <ellipse cx="600" cy="880" rx="130" ry="46"/>
+    <ellipse cx="1450" cy="900" rx="160" ry="52"/>
+  </g>
+  <g fill="#648937">
+    <ellipse cx="530" cy="855" rx="70" ry="38"/>
+    <ellipse cx="680" cy="862" rx="60" ry="32"/>
+    <ellipse cx="1380" cy="872" rx="80" ry="40"/>
+    <ellipse cx="1530" cy="878" rx="70" ry="36"/>
+  </g>
+  <!-- ornamental grasses -->
+  <g stroke="#82a856" stroke-width="7" stroke-linecap="round" fill="none">
+    <path d="M980 940 q -12 -70 -38 -96"/>
+    <path d="M996 942 q 2 -80 -6 -110"/>
+    <path d="M1012 940 q 16 -66 40 -92"/>
+  </g>
+</svg>

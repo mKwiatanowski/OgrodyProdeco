@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build)",
+      "Bash(npm run dev:*)",
+      "Bash(npm install)",
+      "Bash(npx astro check)",
+      "PowerShell(npm run build)",
+      "PowerShell(npm install)",
+      "PowerShell(npx astro check)"
+    ]
+  }
+}

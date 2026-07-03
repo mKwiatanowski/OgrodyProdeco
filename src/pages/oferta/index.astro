@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import CTASection from "../../components/CTASection.astro";
+import Icon from "../../components/Icon.astro";
+import { getCollection } from "astro:content";
+
+const uslugi = (await getCollection("uslugi")).sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
+
+const etapy = ["Projekt 2D/3D", "Kosztorys i harmonogram", "Realizacja", "Pielęgnacja"];
+---
+
+<BaseLayout
+  title="Oferta — projektowanie i zakładanie ogrodów"
+  description="Projektowanie ogrodów Sanok: projekt 2D/3D, nawierzchnie z kostki brukowej, mała architektura, oświetlenie ogrodowe i pielęgnacja zieleni. Podkarpacie."
+>
+  <section class="bg-brand-50 border-b border-brand-100">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:py-24">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-500">Oferta</p>
+      <h1 class="max-w-3xl text-4xl md:text-5xl font-semibold text-earth-900 text-balance">
+        Od koncepcji po ostatnią roślinę w ziemi
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-earth-700">
+        Prowadzimy cały proces — możesz zamówić kompletny ogród albo tylko wybrany etap.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-x-2 gap-y-3 text-sm font-medium text-earth-800">
+        {etapy.map((etap, i) => (
+          <>
+            <span class="rounded-full bg-white px-4 py-1.5 ring-1 ring-brand-200">{etap}</span>
+            {i < etapy.length - 1 && <Icon name="arrow-right" class="h-4 w-4 text-brand-400" />}
+          </>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {uslugi.map((usluga) => (
+        <ServiceCard
+          title={usluga.data.title}
+          description={usluga.data.skrot}
+          href={`/oferta/${usluga.slug}`}
+          icon={usluga.data.ikona}
+        />
+      ))}
+    </div>
+  </section>
+
+  <CTASection
+    title="Nie wiesz, którego etapu potrzebujesz?"
+    subtitle="Opisz nam działkę i oczekiwania — doradzimy zakres i przygotujemy bezpłatną wycenę."
+  />
+</BaseLayout>

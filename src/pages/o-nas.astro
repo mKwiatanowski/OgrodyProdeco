@@ -1,0 +1,128 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CTASection from "../components/CTASection.astro";
+import Icon from "../components/Icon.astro";
+
+const wartosci = [
+  {
+    ikona: "graduation-cap",
+    tytul: "Wykształcenie kierunkowe",
+    opis: "Projekty oparte na wiedzy o roślinach i siedliskach, nie tylko na doświadczeniu wykonawczym.",
+  },
+  {
+    ikona: "file-check",
+    tytul: "Pełna dokumentacja",
+    opis: "Kosztorys, harmonogram i dobór materiałów — zanim zapadnie decyzja o realizacji.",
+  },
+  {
+    ikona: "handshake",
+    tytul: "Jeden partner",
+    opis: "Od projektu przez realizację po pielęgnację — bez koordynowania kilku firm.",
+  },
+  {
+    ikona: "map-pin",
+    tytul: "Lokalna firma",
+    opis: "Znamy gleby, mikroklimat i warunki regionu podkarpackiego z wieloletniej praktyki.",
+  },
+];
+
+const zespol = [
+  {
+    imie: "Beata Bach",
+    rola: "Projektowanie i nadzór merytoryczny",
+    opis: "Mgr inż. ogrodnictwa, absolwentka Uniwersytetu Rolniczego im. Hugona Kołłątaja w Krakowie (Wydział Ogrodniczy) oraz studiów podyplomowych „Kształtowanie i pielęgnacja terenów zieleni”. Odpowiada za koncepcje, dobór roślin i jakość merytoryczną każdego projektu.",
+    telefon: "608 354 401",
+    telHref: "tel:+48608354401",
+  },
+  {
+    imie: "Dawid Bach",
+    rola: "Realizacja i kontakt z klientem",
+    opis: "Koordynuje prace w terenie — od nawierzchni i małej architektury po nasadzenia. Czuwa nad harmonogramem i tym, żeby realizacja była wierna projektowi.",
+    telefon: "793 751 983",
+    telHref: "tel:+48793751983",
+  },
+];
+---
+
+<BaseLayout
+  title="O nas — zespół i doświadczenie"
+  description="Poznaj zespół PRODECO — projektowanie ogrodów oparte na wykształceniu kierunkowym i doświadczeniu od 2011 roku. Sanok, Podkarpacie."
+>
+  <!-- nagłówek strony -->
+  <section class="bg-brand-50 border-b border-brand-100">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:py-24">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-brand-500">O nas</p>
+      <h1 class="max-w-3xl text-4xl md:text-5xl font-semibold text-earth-900 text-balance">
+        Ludzie, dla których ogród to więcej niż trawnik
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-earth-700">
+        Od 2011 roku projektujemy i realizujemy ogrody oraz tereny zieleni na Podkarpaciu —
+        dla właścicieli domów oraz firm i instytucji.
+      </p>
+    </div>
+  </section>
+
+  <!-- historia -->
+  <section class="mx-auto max-w-3xl px-4 py-16">
+    <div class="prose prose-lg prose-headings:font-display prose-a:text-brand-700 max-w-none text-earth-800">
+      <p>
+        Firmę prowadzimy we dwoje — Beata i Dawid Bach. Zaczynaliśmy w 2011 roku i od tego
+        czasu zrealizowaliśmy ogrody przydomowe, nawierzchnie oraz tereny zieleni publicznej
+        w Sanoku i całym województwie podkarpackim.
+      </p>
+      <p>
+        Łączymy dwie rzeczy, które rzadko idą w parze: wiedzę merytoryczną z projektowaniem
+        oraz własny zespół wykonawczy. Dzięki temu projekt nie kończy się na ładnej
+        wizualizacji — uwzględnia realne warunki siedliskowe działki (nasłonecznienie, glebę,
+        mikroklimat) i jest wykonalny w założonym budżecie.
+      </p>
+      <p>
+        Każdy projekt ma pełną dokumentację: kosztorys z podziałem na etapy, harmonogram prac
+        oraz dobór roślin i materiałów z przeliczeniem ilości. Wiesz, na czym stoisz, zanim
+        zapadnie decyzja o realizacji.
+      </p>
+    </div>
+  </section>
+
+  <!-- zespół -->
+  <section class="bg-brand-50">
+    <div class="mx-auto max-w-6xl px-4 py-20">
+      <SectionHeading eyebrow="Zespół" title="Kto stoi za PRODECO" />
+      <div class="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
+        {zespol.map((osoba) => (
+          <article class="rounded-2xl border border-brand-100 bg-white p-8">
+            <span class="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-brand-100 font-display text-2xl font-semibold text-brand-700">
+              {osoba.imie.charAt(0)}
+            </span>
+            <h3 class="font-display text-xl text-earth-900">{osoba.imie}</h3>
+            <p class="mb-3 text-sm font-semibold text-brand-600">{osoba.rola}</p>
+            <p class="text-sm text-earth-700 leading-relaxed">{osoba.opis}</p>
+            <a href={osoba.telHref} class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:underline">
+              <Icon name="phone" class="h-4 w-4" />
+              {osoba.telefon}
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- wartości -->
+  <section class="mx-auto max-w-6xl px-4 py-20">
+    <SectionHeading eyebrow="Dlaczego my" title="Cztery rzeczy, na których nam zależy" />
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {wartosci.map((w) => (
+        <div class="rounded-2xl border border-brand-100 p-7">
+          <span class="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+            <Icon name={w.ikona} class="h-5 w-5" />
+          </span>
+          <h3 class="font-display text-lg text-earth-900 mb-1.5">{w.tytul}</h3>
+          <p class="text-sm text-earth-700 leading-relaxed">{w.opis}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CTASection title="Poznaj naszą ofertę" subtitle="Projektowanie, nawierzchnie, mała architektura, oświetlenie i pielęgnacja." ctaLabel="Zobacz ofertę" ctaHref="/oferta" />
+</BaseLayout>
